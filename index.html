@@ -42,9 +42,11 @@ var markers = data.split("\n");
             bomb_map = new google.maps.Map(document.getElementById('bomb_map'), {
             zoom: 15,
              center: {lat: 47.991590, lng: 17.620571}
+             var old_position = new google.maps.Marker({
+             });
         });
-var marker = new google.maps.Marker({
-});
+
+
 
              if(navigator.geolocation) {
     navigator.geolocation.watchPosition(set_my_position);
@@ -72,7 +74,7 @@ var marker = new google.maps.Marker({
 
 }
 function set_my_position(position){
-   old_position.setMap(null);
+  old_position.setMap(null);
   var pclat = position.coords.latitude;
   var pclon = position.coords.longitude;
 var pos = new google.maps.LatLng(pclat, pclon );
@@ -80,8 +82,9 @@ var markeryou = new google.maps.Marker({
     position: pos,
     map: bomb_map,
     icon: "you.png"
-  });
-old_position = marker;
+      });
+ set_my_position()
+ old_position = markeryou;
 }
 
 
