@@ -15,6 +15,7 @@
 
 
     var bomb_map;
+    var old_position;
     var all_markers = [];
     var data = `47.99135614533746 17.61902478987803 agent.png
 47.99130785939017 17.619751418319805 agent.png
@@ -41,8 +42,13 @@ var markers = data.split("\n");
             bomb_map = new google.maps.Map(document.getElementById('bomb_map'), {
             zoom: 15,
              center: {lat: 47.991590, lng: 17.620571}
+
         });
 
+var old_position = new google.maps.Marker({
+  position: {lat: 47.991590, lng: 17.620571},
+  map: bomb_map
+});
 
 
              if(navigator.geolocation) {
@@ -71,6 +77,7 @@ var marker = new google.maps.Marker({
 
 }
 function set_my_position(position){
+  old_position.setMap(null);
   var pclat = position.coords.latitude;
   var pclon = position.coords.longitude;
 var pos = new google.maps.LatLng(pclat, pclon );
@@ -79,7 +86,8 @@ var markeryou = new google.maps.Marker({
     map: bomb_map,
     icon: "you.png"
   });
-
+ set_my_position()
+old_position = markeryou;
 }
 
 
@@ -87,9 +95,9 @@ var markeryou = new google.maps.Marker({
 </script>
 
 <script async defer
-   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTIJrcOqjJDxd8nVCS78omkKI6_l3bc5E&callback=initMap">
+   src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap">
+   //AIzaSyDTIJrcOqjJDxd8nVCS78omkKI6_l3bc5E
  </script>
   </body>
 
 </html>
-
