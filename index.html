@@ -1,5 +1,4 @@
 <html>
-<meta name="viewport" content="width=device-width, initial-scale=1">
   <head>
     <title>Bomb in city</title>
 <style>
@@ -12,53 +11,96 @@
   </head>
   <body>
 <div id="bomb_map"></div>
-
-<form>
-Výber emoji:
-<select id="icon">
-  <option value="agent.png">Agent</option>
-  <option value="hospital.png">Nemocnica</option>
-<option value="bomb.png">Bomba</option>
-</select>
-</form>
-
 <script>
 
-     
+
     var bomb_map;
+    var old_position;
+    var all_markers = [];
+    var data = `47.99135614533746 17.61902478987803 agent.png
+47.99130785939017 17.619751418319805 agent.png
+47.99105683459843 17.619049102260654 agent.png
+47.99121024680325 17.617869990604863 agent.png
+47.991072027467 17.6181650335965 bomb.png
+47.99814454433291 17.621043805176537 bomb.png
+47.998805148062736 17.621131941839984 agent.png
+47.99832055256463 17.622065350577166 agent.png
+47.997695956097424 17.620638415381244 agent.png
+47.998004665641226 17.612666890188983 agent.png
+47.999497932240054 17.608324393793872 hospital.png
+47.996848816271516 17.614675640143396 bomb.png
+47.996762663026686 17.61451604870701 agent.png
+47.99684163683994 17.614402054823877 agent.png
+47.997005417374176 17.61458109227562 agent.png
+47.99473085611723 17.61101302601837 agent.png
+47.99381070150713 17.608619216242847 agent.png
+47.994496372991016 17.60979084904774 agent.png
+47.994150485175666 17.60984364360115 bomb.png`;
+var markers = data.split("\n");
+
     function initMap() {
             bomb_map = new google.maps.Map(document.getElementById('bomb_map'), {
             zoom: 15,
              center: {lat: 47.991590, lng: 17.620571}
         });
 
-bomb_map.addListener( 'click', function(event) {
-place_marker(event.latLng, bomb_map);
-}); 
- }
 
-function place_marker(position, bomb_map){
-var emoji = document.getElementById('icon').value;
-   var marker = new google.maps.Marker({
-      position: position,
-      icon: emoji,
-      map: bomb_map
-  
-    });
- bomb_map.panTo(position);
-console.log(position.lat() +" " + position.lng()+ " "+ emoji);
-var x = position.lat() +" " + position.lng()+ " "+ emoji;
- var x = document.createElement("P");
- x.innerText = position.lat() +" " + position.lng()+ " "+ emoji;
-  document.body.appendChild(x);
 
+
+             if(navigator.geolocation) {
+    navigator.geolocation.watchPosition(set_my_position);
 }
-    
+else {
+    alert("Geolokalita nenájdená...");
+}
+for(var i=0; i < markers.length; i++){
+document.write( markers[i] + "<br>");
+var marker_data = markers[i].trim();
+marker_data = marker_data.split(" ");
+var latitude = marker_data[0];
+var longitude = marker_data[1];
+var emoji = marker_data[2];
+var marker_position = new google.maps.LatLng( latitude, longitude);
+all_markers.push(marker);
+
+var marker = new google.maps.Marker({
+  position: marker_position,
+  icon: emoji,
+  map: bomb_map
+
+});
+}
+ var old_position = new google.maps.Marker({
+            position: { lat: 47.991590, lng: 17.620571 },
+            map: bomb_map,
+            icon: "you.png"
+          });
+
+function set_my_position(position){
+  old_position.setMap(null);
+  var pclat = position.coords.latitude;
+  var pclon = position.coords.longitude;
+var pos = new google.maps.LatLng(pclat, pclon );
+var markeryou = new google.maps.Marker({
+    position: pos,
+    map: bomb_map,
+    icon: "you.png"
+  });
+  old_position = markeryou;
+  }
+}
+
+
+
+
+
+
 
 </script>
 
 <script async defer
    src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap">
+  // AIzaSyDTIJrcOqjJDxd8nVCS78omkKI6_l3bc5E
  </script>
   </body>
 
