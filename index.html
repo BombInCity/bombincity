@@ -42,10 +42,14 @@ var markers = data.split("\n");
             bomb_map = new google.maps.Map(document.getElementById('bomb_map'), {
             zoom: 15,
              center: {lat: 47.991590, lng: 17.620571}
+
+
         });
-          old_position = new google.maps.Marker({
-            map: bomb_map,
-          });
+        old_position = new google.maps.Marker({
+          
+        });
+
+
 
 
              if(navigator.geolocation) {
