@@ -44,11 +44,7 @@ var markers = data.split("\n");
              center: {lat: 47.991590, lng: 17.620571}
         });
 
-        var old_position = new google.maps.Marker({
-            position: { lat: 47.991590, lng: 17.620571 },
-            map: bomb_map,
-            icon: "you.png"
-          });
+       
 
 
              if(navigator.geolocation) {
@@ -74,7 +70,12 @@ var marker = new google.maps.Marker({
 
 });
 }
-
+ var old_position = new google.maps.Marker({
+            position: { lat: 47.991590, lng: 17.620571 },
+            map: bomb_map,
+            icon: "you.png"
+          });
+      
 function set_my_position(position){
   old_position.setMap(null);
   var pclat = position.coords.latitude;
@@ -85,8 +86,7 @@ var markeryou = new google.maps.Marker({
     map: bomb_map,
     icon: "you.png"
   });
-  set_my_position()
-  old_position = marker;
+  old_position = markeryou;
   }
 }
 
