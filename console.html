@@ -1,0 +1,65 @@
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <head>
+    <title>Bomb in city</title>
+<style>
+#bomb_map {
+    width: 600px;
+    height: 400px;
+    background-color: grey;
+}
+</style>
+  </head>
+  <body>
+<div id="bomb_map"></div>
+
+<form>
+Výber emoji:
+<select id="icon">
+  <option value="agent.png">Agent</option>
+  <option value="hospital.png">Nemocnica</option>
+<option value="bomb.png">Bomba</option>
+</select>
+</form>
+
+<script>
+
+     
+    var bomb_map;
+    function initMap() {
+            bomb_map = new google.maps.Map(document.getElementById('bomb_map'), {
+            zoom: 15,
+             center: {lat: 47.991590, lng: 17.620571}
+        });
+
+bomb_map.addListener( 'click', function(event) {
+place_marker(event.latLng, bomb_map);
+}); 
+ }
+
+function place_marker(position, bomb_map){
+var emoji = document.getElementById('icon').value;
+   var marker = new google.maps.Marker({
+      position: position,
+      icon: emoji,
+      map: bomb_map
+  
+    });
+ bomb_map.panTo(position);
+console.log(position.lat() +" " + position.lng()+ " "+ emoji);
+var x = position.lat() +" " + position.lng()+ " "+ emoji;
+ var x = document.createElement("P");
+ x.innerText = position.lat() +" " + position.lng()+ " "+ emoji;
+  document.body.appendChild(x);
+
+}
+    
+
+</script>
+
+<script async defer
+   src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap">
+ </script>
+  </body>
+
+</html>
