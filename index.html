@@ -15,6 +15,7 @@
 
 
     var bomb_map;
+    var tolerance = 15;
     var old_position;
     var all_markers = [];
     var data = `47.99135614533746 17.61902478987803 agent.png
@@ -35,7 +36,10 @@
 47.99473085611723 17.61101302601837 agent.png
 47.99381070150713 17.608619216242847 agent.png
 47.994496372991016 17.60979084904774 agent.png
-47.994150485175666 17.60984364360115 bomb.png`;
+47.994150485175666 17.60984364360115 bomb.png
+47.98939282340828 17.624106021340538 bomb.png
+47.98938069655751 17.624131567013354 hospital.png
+47.99229033272639 17.623437368410674 bomb.png`;
 var markers = data.split("\n");
 
     function initMap() {
@@ -54,7 +58,7 @@ else {
     alert("Geolokalita nenájdená...");
 }
 for(var i=0; i < markers.length; i++){
-document.write( markers[i] + "<br>");
+//document.write( markers[i] + "<br>");
 var marker_data = markers[i].trim();
 marker_data = marker_data.split(" ");
 var latitude = marker_data[0];
@@ -87,20 +91,35 @@ var markeryou = new google.maps.Marker({
     icon: "you.png"
   });
   old_position = markeryou;
-  }
+      for( var dis=0; dis < all_markers.length; dis++){
+          var distance = google.maps.geometry.spherical.computeDistanceBetween(pos, all_markers[dis].getPosition());
+          alert( distance )
+          if( distance < tolerance ){
+    alert("Found it!")
 }
+      }
+  // Loop through the array, printing each item followed by a <br>
+    /*for(var i=0; i < all_markers.length; i++){
+         var distance = google.maps.geometry.spherical.computeDistanceBetween(pos, all_markers[i].getPosition());}
+          if( distance < tolerance ){
+              alert("Found it!");
+              var what_is_it = all_markers[i].getIcon();
+              what_is_it = what_is_it.replace(".png", "");
 
+              alert("Narazili ste na " + what_is_it );
 
+            all_markers[i].setMap(null);
+      }*/
+  }
 
-
+}
 
 
 
 </script>
 
 <script async defer
-   src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap">
-  // AIzaSyDTIJrcOqjJDxd8nVCS78omkKI6_l3bc5E
+   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTIJrcOqjJDxd8nVCS78omkKI6_l3bc5E&callback=initMap&libraries=geometry">
  </script>
   </body>
 
