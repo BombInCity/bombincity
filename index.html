@@ -15,7 +15,7 @@
 
 
     var bomb_map;
-    var tolerance = 15;
+    var tolerance = 30;
     var old_position;
     var all_markers = [];
     var data = `47.99135614533746 17.61902478987803 agent.png
@@ -91,8 +91,8 @@ var markeryou = new google.maps.Marker({
     icon: "you.png"
   });
   old_position = markeryou;
-      for( var dis=0; dis < all_markers.length; dis++){
-          var distance = google.maps.geometry.spherical.computeDistanceBetween(pos, all_markers[dis].getPosition());
+      for( var i=0; i < all_markers.length; i++){
+          var distance = google.maps.geometry.spherical.computeDistanceBetween(pos, all_markers[i].getPosition());
           alert( distance )
           if( distance < tolerance ){
     alert("Found it!")
