@@ -1,16 +1,38 @@
 <html>
   <head>
     <title>Bomb in city</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
+
+h4 {text-align: center;}
+input {   text-align: center; }
+.centerinp {
+  margin: auto;
+  border: 1px solid blue;
+}
+
 #bomb_map {
-    width: 100%;
-    height: 100%;
+    width: 98%;
+    height: 80%;
     background-color: grey;
 }
+
+.centermap {
+  margin: auto;
+  border: 5px solid red;
+  padding: 10px;
+}
+.card {
+    border: 3px solid black;
+  width: 30%;
+  height:80%
+}
+
 </style>
   </head>
   <body>
-<div id="bomb_map"></div>
+    <hr> <br>
+<div class="centermap" id="bomb_map"></div><br>
 <script>
 
 
@@ -86,11 +108,9 @@ var marker = new google.maps.Marker({
 
 function set_my_position(position){
   old_position.setMap(null);
-  //bomb_map.setCenter( null );
    var pclat = position.coords.latitude;
   var pclon = position.coords.longitude;
 var pos = new google.maps.LatLng(pclat, pclon );
-var myposloc = bomb_map.setCenter( pos );
 var markeryou = new google.maps.Marker({
     position: pos,
     map: bomb_map,
@@ -98,7 +118,6 @@ var markeryou = new google.maps.Marker({
     icon: "you.png"
   });
     old_position = markeryou;
-myposloc.remove();
 
 
 
@@ -128,6 +147,7 @@ myposloc.remove();
 
   google.maps.event.addListener(bomb_map, 'click', function(event) {
      placeMarker(event.latLng);
+//     bomb_map.setCenter( pos );
   });
 
   function placeMarker(location) {
@@ -139,6 +159,7 @@ myposloc.remove();
           icon: "mymarker.png"
       });
 old_mymaker = mymarker;
+
 
 }
 }
@@ -155,6 +176,26 @@ old_mymaker = mymarker;
    src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap&libraries=geometry">
   // AIzaSyDTIJrcOqjJDxd8nVCS78omkKI6_l3bc5E
  </script>
+
+ <div id="my-node" class="card">
+  <img src="agcard01.png" alt="Agent card" style="width: 100%"> <br> <hr> <br> <br>
+    <input type="text" class="centerinp" id="fname" name="fname" style="width: 100%">
+    <h4 >Podpis</h4> <br> <br> <br>
+    <img src="agcard02.png" style="width:100%"> <br>
+  </div>
+<button id="foo">download img</button>
+
+  <script>
+  var node = document.getElementById('my-node');
+  var btn = document.getElementById('foo');
+  btn.onclick = function() {
+  node.innerHTML = "Máte svoju kartu agentskú kartu."
+    domtoimage.toBlob(document.getElementById('my-node'))
+      .then(function(blob) {
+        window.saveAs(blob, 'bombincity_karta.png');
+      });
+  }
+  </script>
   </body>
 
 </html>
