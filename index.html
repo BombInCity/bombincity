@@ -1,7 +1,9 @@
 <html>
   <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Bomb in city</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="https://files.codepedia.info/files/uploads/iScripts/html2canvas.js"></script>
 <style>
 
 h4 {text-align: center;}
@@ -177,25 +179,13 @@ old_mymaker = mymarker;
   // AIzaSyDTIJrcOqjJDxd8nVCS78omkKI6_l3bc5E
  </script>
 
- <div id="my-node" class="card">
-  <img src="agcard01.png" alt="Agent card" style="width: 100%"> <br> <hr> <br> <br>
-    <input type="text" class="centerinp" id="fname" name="fname" style="width: 100%">
-    <h4 >Podpis</h4> <br> <br> <br>
-    <img src="agcard02.png" style="width:100%"> <br>
-  </div>
-<button id="foo">download img</button>
+ <p>Kliknite pre uloženie svojej karty:<p>
+ <a href="bombincity_card.jpg" download>
+   <img src="bombincity_card.jpg"  width="104" height="142">
+ </a>
 
-  <script>
-  var node = document.getElementById('my-node');
-  var btn = document.getElementById('foo');
-  btn.onclick = function() {
-  node.innerHTML = "Máte svoju kartu agentskú kartu."
-    domtoimage.toBlob(document.getElementById('my-node'))
-      .then(function(blob) {
-        window.saveAs(blob, 'bombincity_karta.png');
-      });
-  }
-  </script>
+
+
   </body>
 
 </html>
