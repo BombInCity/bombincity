@@ -3,8 +3,8 @@
     <title>Bomb in city</title>
 <style>
 #bomb_map {
-    width: 600px;
-    height: 400px;
+    width: 100%;
+    height: 100%;
     background-color: grey;
 }
 </style>
@@ -15,8 +15,9 @@
 
 
     var bomb_map;
-    var tolerance = 30;
+    var tolerance = 10;
     var old_position;
+    var old_mymaker;
     var all_markers = [];
     var data = `47.99135614533746 17.61902478987803 agent.png
 47.99130785939017 17.619751418319805 agent.png
@@ -37,6 +38,8 @@
 47.99381070150713 17.608619216242847 agent.png
 47.994496372991016 17.60979084904774 agent.png
 47.994150485175666 17.60984364360115 bomb.png
+47.994884365578955 17.61148871530353 medic.png
+47.990494723824156 17.621540796484524 medic.png
 47.98939282340828 17.624106021340538 bomb.png
 47.98938069655751 17.624131567013354 hospital.png
 47.99229033272639 17.623437368410674 bomb.png`;
@@ -46,8 +49,8 @@ var markers = data.split("\n");
             bomb_map = new google.maps.Map(document.getElementById('bomb_map'), {
             zoom: 15,
              center: {lat: 47.991590, lng: 17.620571}
-        });
 
+        });
 
 
 
@@ -78,26 +81,29 @@ var marker = new google.maps.Marker({
             position: { lat: 47.991590, lng: 17.620571 },
             map: bomb_map,
             icon: "you.png"
+
           });
 
 function set_my_position(position){
   old_position.setMap(null);
-  var pclat = position.coords.latitude;
+  //bomb_map.setCenter( null );
+   var pclat = position.coords.latitude;
   var pclon = position.coords.longitude;
 var pos = new google.maps.LatLng(pclat, pclon );
+var myposloc = bomb_map.setCenter( pos );
+  myposloc.remove();
 var markeryou = new google.maps.Marker({
     position: pos,
     map: bomb_map,
+    title: "Tvoja pozícia",
     icon: "you.png"
   });
-  old_position = markeryou;
-      for( var i=0; i < all_markers.length; i++){
-          var distance = google.maps.geometry.spherical.computeDistanceBetween(pos, all_markers[i].getPosition());
-          alert( distance )
-          if( distance < tolerance ){
-    alert("Found it!")
-}
-      }
+    old_position = markeryou;
+
+
+
+
+
   // Loop through the array, printing each item followed by a <br>
     /*for(var i=0; i < all_markers.length; i++){
          var distance = google.maps.geometry.spherical.computeDistanceBetween(pos, all_markers[i].getPosition());}
@@ -112,14 +118,43 @@ var markeryou = new google.maps.Marker({
       }*/
   }
 
+  var old_mymaker = new google.maps.Marker({
+              position: { lat: -83.766245, lng: 166.746280 },
+             map: bomb_map,
+             title: "Kliknite na mapu a pridajte svoju značku",
+             icon: "mymarker.png"
+
+           });
+
+
+  google.maps.event.addListener(bomb_map, 'click', function(event) {
+     placeMarker(event.latLng);
+  });
+
+  function placeMarker(location) {
+    old_mymaker.setMap(null);
+      var mymarker = new google.maps.Marker({
+          position: location,
+          map: bomb_map,
+          title: "Moja značka",
+          icon: "mymarker.png"
+      });
+old_mymaker = mymarker;
+
 }
+}
+
+
+
+
 
 
 
 </script>
 
 <script async defer
-   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTIJrcOqjJDxd8nVCS78omkKI6_l3bc5E&callback=initMap&libraries=geometry">
+   src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap&libraries=geometry">
+  // AIzaSyDTIJrcOqjJDxd8nVCS78omkKI6_l3bc5E
  </script>
   </body>
 
