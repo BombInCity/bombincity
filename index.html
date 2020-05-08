@@ -121,11 +121,11 @@ var marker = new google.maps.Marker({
       for(var i=0; i < all_markers.length; i++){
          var distance = google.maps.geometry.spherical.computeDistanceBetween(pos, all_markers[i].getPosition());}
           if( distance < tolerance ){
-            alert("NAŠiel")
-          /*var what_is_it = all_markers[i].getIcon();
+            //alert("NAŠiel")
+          var what_is_it = all_markers[i].getIcon();
               what_is_it = what_is_it.replace(".png", "");
                alert("Narazili ste na " + what_is_it );
-               all_markers[i].setMap(null);*/
+               all_markers[i].setMap(null);
       }
   }
 
