@@ -6,17 +6,18 @@
 <script src="https://files.codepedia.info/files/uploads/iScripts/html2canvas.js"></script>
 <style>
 
-h4 {text-align: center;}
-input {   text-align: center; }
-.centerinp {
-  margin: auto;
-  border: 1px solid blue;
-}
-
 #bomb_map {
     width: 98%;
     height: 80%;
     background-color: grey;
+}
+
+article {
+  float: left;
+//  padding: 20px;
+  //width: 70%;
+  //background-color: #f1f1f1;
+//  height: 300px; /* only for demonstration, should be removed */
 }
 
 .centermap {
@@ -24,11 +25,7 @@ input {   text-align: center; }
   border: 5px solid red;
   padding: 10px;
 }
-.card {
-    border: 3px solid black;
-  width: 30%;
-  height:80%
-}
+
 
 </style>
   </head>
@@ -73,7 +70,6 @@ var markers = data.split("\n");
             bomb_map = new google.maps.Map(document.getElementById('bomb_map'), {
             zoom: 15,
              center: {lat: 47.991590, lng: 17.620571}
-
         });
 
 
@@ -92,7 +88,7 @@ var latitude = marker_data[0];
 var longitude = marker_data[1];
 var emoji = marker_data[2];
 var marker_position = new google.maps.LatLng( latitude, longitude);
-all_markers.push(marker);
+
 
 var marker = new google.maps.Marker({
   position: marker_position,
@@ -100,6 +96,7 @@ var marker = new google.maps.Marker({
   map: bomb_map
 
 });
+all_markers.push(marker);
 }
  var old_position = new google.maps.Marker({
             position: { lat: 47.991590, lng: 17.620571 },
@@ -113,29 +110,23 @@ function set_my_position(position){
    var pclat = position.coords.latitude;
   var pclon = position.coords.longitude;
 var pos = new google.maps.LatLng(pclat, pclon );
-var markeryou = new google.maps.Marker({
+//bomb_map.setCenter( pos );
+var marker = new google.maps.Marker({
     position: pos,
     map: bomb_map,
     title: "Tvoja pozícia",
     icon: "you.png"
   });
-    old_position = markeryou;
-
-
-
-
-  // Loop through the array, printing each item followed by a <br>
-    /*for(var i=0; i < all_markers.length; i++){
+    old_position = marker;
+      for(var i=0; i < all_markers.length; i++){
          var distance = google.maps.geometry.spherical.computeDistanceBetween(pos, all_markers[i].getPosition());}
           if( distance < tolerance ){
-              alert("Found it!");
-              var what_is_it = all_markers[i].getIcon();
+            alert("NAŠiel")
+          /*var what_is_it = all_markers[i].getIcon();
               what_is_it = what_is_it.replace(".png", "");
-
-              alert("Narazili ste na " + what_is_it );
-
-            all_markers[i].setMap(null);
-      }*/
+               alert("Narazili ste na " + what_is_it );
+               all_markers[i].setMap(null);*/
+      }
   }
 
   var old_mymaker = new google.maps.Marker({
@@ -164,6 +155,8 @@ old_mymaker = mymarker;
 
 
 }
+
+
 }
 
 
@@ -175,7 +168,7 @@ old_mymaker = mymarker;
 </script>
 
 <script async defer
-   src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap&libraries=geometry">
+   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTIJrcOqjJDxd8nVCS78omkKI6_l3bc5E&callback=initMap&libraries=geometry">
   // AIzaSyDTIJrcOqjJDxd8nVCS78omkKI6_l3bc5E
  </script>
 
